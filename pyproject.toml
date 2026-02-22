@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "corecompute"
+authors = [
+    {name = "Nuclear RAMP team", email = "nuclear.ramp.dev@gmail.com"},
+]
+description = "Package for lightweight representation of nuclear isotopes"
+dynamic = ["version"]
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "numpy",
+    "more-itertools",
+    "xarray"
+]
+
+[project.optional-dependencies]
+test = [
+    "cytoolz",
+    "hypothesis",
+    "pytest"
+]
+
+[tool.setuptools.packages.find]
+include = ['corecompute*']
+exclude = ['tests*']
+
+[tool.setuptools_scm]
