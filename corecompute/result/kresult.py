@@ -72,8 +72,8 @@ class KResult(Serializable):
 
         """
 
-        k = 1. / (1. - (rho / XXX))
-        return cls(k=k, dk=(k ** 2) * (drho / XXX))
+        k = 1. / (1. - (rho / 1e5))
+        return cls(k=k, dk=(k ** 2) * (drho / 1e5))
 
     @property
     def reactivity(self) -> PCM: return 1e5 * (1. - (1. / self.k))
