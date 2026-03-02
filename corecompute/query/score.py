@@ -1,6 +1,7 @@
 from dataclasses import dataclass, asdict
 from typing import (
         Sequence, Protocol, Type, Iterable, Literal, Any, ClassVar, TypeVar,
+        Callable,
         )
 try:
     from typing import Self
