@@ -3,10 +3,6 @@
 """
 from statistics import NormalDist
 from typing import Any, Type, TypeVar
-try:
-    from typing import Self
-except ImportError:
-    Self = TypeVar("Self")
 
 from ramp_core.serializable import Serializable
 
