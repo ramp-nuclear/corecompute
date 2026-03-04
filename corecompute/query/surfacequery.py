@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from itertools import pairwise
 from pathlib import PurePath
-from typing import ClassVar, Type, Any, Callable, TypeVar
+from typing import Any, Callable, ClassVar, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:

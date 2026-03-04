@@ -2,7 +2,6 @@
 
 """
 from statistics import NormalDist
-from typing import Any, Type, TypeVar
 
 from ramp_core.serializable import Serializable
 

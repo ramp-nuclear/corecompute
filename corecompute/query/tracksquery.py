@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import ClassVar, Any, Type, TypeVar
+from typing import Any, ClassVar, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:

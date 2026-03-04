@@ -1,4 +1,0 @@
-coremaker
-reactions
-ramp_core
-coreoperator

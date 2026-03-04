@@ -3,7 +3,8 @@
 """
 from dataclasses import dataclass
 from pathlib import PurePath
-from typing import Sequence, ClassVar, Any, Type, TypeVar
+from typing import Any, Sequence, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:
@@ -14,7 +15,7 @@ from ramp_core.serializable import Serializable, deserialize_default
 from reactions import Neutron
 from reactions.particle import NamedParticle, Particle
 
-from corecompute.query.score import Score, ReactionScore, TabulatedScore
+from corecompute.query.score import ReactionScore, Score, TabulatedScore
 
 eV = float
 Scorable = Score | ReactionScore | TabulatedScore

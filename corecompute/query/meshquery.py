@@ -12,7 +12,8 @@ we want to be able to describe our most general meaning.
 
 from dataclasses import dataclass
 from itertools import pairwise
-from typing import ClassVar, Any, TypeVar, Type
+from typing import Any, ClassVar, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:
@@ -21,7 +22,7 @@ except ImportError:
 from coremaker.mesh import CartesianMesh, CylindricalMesh, SphericalMesh
 from coremaker.transform import Transform, identity
 from ramp_core.serializable import Serializable, deserialize_default
-from reactions import Particle, Neutron
+from reactions import Neutron, Particle
 
 from corecompute.query.score import Score
 

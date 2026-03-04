@@ -1,6 +1,7 @@
 """Results of a MeshQuery"""
 from dataclasses import dataclass
-from typing import ClassVar, Any, Type, TypeVar
+from typing import Any, ClassVar, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:
