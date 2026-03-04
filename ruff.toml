@@ -1,0 +1,7 @@
+lint.extend-select = ["I"]
+line-length = 120
+exclude = ["build", "docs"]
+
+[lint.per-file-ignores]
+"*__init__.py" = ["F403", "I001", "F403", "F405"]
+"tests/test_proto_reaction.py" = ["F403", "F405"] 

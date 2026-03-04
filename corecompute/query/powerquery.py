@@ -1,6 +1,7 @@
 """Query for power distributions"""
 
 from typing import Any
+
 from ramp_core.serializable import Serializable
 
 MW = float

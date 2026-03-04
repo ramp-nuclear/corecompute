@@ -7,7 +7,8 @@ types.
 
 from dataclasses import dataclass, field
 from pathlib import PurePath
-from typing import ClassVar, Any, Type, TypeVar
+from typing import Any, ClassVar, Type, TypeVar
+
 try:
     from typing import Self
 except ImportError:
@@ -16,8 +17,7 @@ except ImportError:
 from ramp_core.serializable import Serializable, deserialize_default
 from reactions import Particle
 
-
-from corecompute.query.score import Score, ReactionScore
+from corecompute.query.score import ReactionScore, Score
 
 eV = float
 

@@ -1,6 +1,6 @@
 import json
 from collections import Counter
-from pathlib import PurePath, Path
+from pathlib import Path, PurePath
 from string import ascii_lowercase
 
 import hypothesis.strategies as st
@@ -13,20 +13,32 @@ from cytoolz import valmap
 from hypothesis import given, settings
 from hypothesis.extra.numpy import arrays
 from isotopes import ZAID
-from ramp_core import RampJSONEncoder, RampJSONDecoder
+from ramp_core import RampJSONDecoder, RampJSONEncoder
 from reactions import (
-        Reaction, ProtoReaction, Typus, ProductionReaction, 
-        jsonable as reac_jsonable,
-        )
+    ProductionReaction,
+    ProtoReaction,
+    Reaction,
+    Typus,
+)
+from reactions import (
+    jsonable as reac_jsonable,
+)
 from reactions.particle import NamedParticle
 
 from corecompute import jsonable
 from corecompute.query import (
-        Score, TabulatedScore, ReactionScore, MeshQuery, HeatingRateQuery, 
-        SurfaceTracksQuery, KQuery, SurfaceCurrentQuery, VolumeQuery,
-        )
+    HeatingRateQuery,
+    KQuery,
+    MeshQuery,
+    ReactionScore,
+    Score,
+    SurfaceCurrentQuery,
+    SurfaceTracksQuery,
+    TabulatedScore,
+    VolumeQuery,
+)
 from corecompute.result import KResult, MeshResult, VolumeResult
-from corecompute.result.meshresult import UNITS, LONG_NAME
+from corecompute.result.meshresult import LONG_NAME, UNITS
 
 scorenames = st.sampled_from(["flux", "fission-q-prompt", "heating"])
 scores = st.builds(Score, name=scorenames, volume_specific=st.booleans())

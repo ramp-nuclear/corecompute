@@ -1,7 +1,7 @@
 """The Oracle protocol, used to define how transport-related queries are answered.
 
 """
-from typing import Protocol, Any
+from typing import Any, Protocol
 
 from coreoperator.operational_state import OperationalState
 

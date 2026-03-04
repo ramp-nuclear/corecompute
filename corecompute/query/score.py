@@ -1,8 +1,16 @@
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import (
-        Sequence, Protocol, Type, Iterable, Literal, Any, ClassVar, TypeVar,
-        Callable,
-        )
+    Any,
+    Callable,
+    ClassVar,
+    Iterable,
+    Literal,
+    Protocol,
+    Sequence,
+    Type,
+    TypeVar,
+)
+
 try:
     from typing import Self
 except ImportError:
@@ -29,6 +37,7 @@ class Score(Serializable):
         If False, the results are extrinsic, meaning they are integrated over
         some volume. The units for flux would be :math:`\frac{n\cdot cm}{sn}`.
     """
+
     ser_identifier: ClassVar[str] = "Score"
     name: SUPPORTED_SCORE
     volume_specific: bool
@@ -38,14 +47,11 @@ class Score(Serializable):
 
 
 class TabulatedValues(Protocol):
-    """A callable that has an underlying grid of points where it is evaluated.
-
-    """
+    """A callable that has an underlying grid of points where it is evaluated."""
 
     x: Sequence[float]
 
-    def __call__(self, x: float) -> float:
-        ...
+    def __call__(self, x: float) -> float: ...
 
 
 def thin(x: np.ndarray, y: np.ndarray, tolerance=1e-3) -> tuple[np.ndarray, np.ndarray]:
@@ -72,14 +78,14 @@ def thin(x: np.ndarray, y: np.ndarray, tolerance=1e-3) -> tuple[np.ndarray, np.n
     while i_left < N - 2 and i_right < N:
         m = (y[i_right] - y[i_left]) / (x[i_right] - x[i_left])
 
-        for i in range(i_left + 1, i_righj):
-            y_interp = y[i_left] + m * (x[i]-x[i_left])
-            error = abs((y_interp - y[i]) / y[i]) if abs(y[i]) > 0. else 2 * tolerance
+        for i in range(i_left + 1, i_right):
+            y_interp = y[i_left] + m * (x[i] - x[i_left])
+            error = abs((y_interp - y[i]) / y[i]) if abs(y[i]) > 0.0 else 2 * tolerance
             if error > tolerance:
-                mask = slice(i_left+1, i_right-1)
+                mask = slice(i_left + 1, i_right - 1)
                 x_out[mask] = np.nan
-                i_left = i_right-1
-                i_right = i_left+1
+                i_left = i_right - 1
+                i_right = i_left + 1
                 break
         i_right += 1
 
@@ -88,8 +94,7 @@ def thin(x: np.ndarray, y: np.ndarray, tolerance=1e-3) -> tuple[np.ndarray, np.n
     return x_out[np.isfinite(x_out)], y_out[np.isfinite(x_out)]
 
 
-def linearize(x: Iterable[float], f: Callable[[float], float], tolerance=1e-3
-              ) -> tuple[np.ndarray, np.ndarray]:
+def linearize(x: Iterable[float], f: Callable[[float], float], tolerance=1e-3) -> tuple[np.ndarray, np.ndarray]:
     """Return a tabulated representation of a one-variable function
 
     Parameters
@@ -122,8 +127,8 @@ def linearize(x: Iterable[float], f: Callable[[float], float], tolerance=1e-3
             ymid = f(xmid)
             m = (yhigh - ylow) / (xhigh - xlow)
 
-            yinterp = ylow + m * (xmid-xlow)
-            error = abs((yinterp-ymid) / ymid)
+            yinterp = ylow + m * (xmid - xlow)
+            error = abs((yinterp - ymid) / ymid)
             if error > tolerance:
                 x_stack.insert(-1, xmid)
                 y_stack.insert(-1, ymid)
@@ -154,6 +159,7 @@ class TabulatedScore(Serializable):
         some volume. The units for flux would be :math:`\frac{n\cdot cm}{sn}`.
 
     """
+
     ser_identifier: ClassVar[str] = "TabulatedScore"
     energy: np.ndarray
     score: np.ndarray
@@ -168,27 +174,24 @@ class TabulatedScore(Serializable):
     def __eq__(self, other):
         if not isinstance(other, type(self)):
             return NotImplemented
-        return (np.all(self.energy == other.energy)
-                and np.all(self.score == other.score)
-                and self.volume_specific == other.volume_specific)
+        return (
+            np.all(self.energy == other.energy)
+            and np.all(self.score == other.score)
+            and self.volume_specific == other.volume_specific
+        )
 
     def serialize(self) -> tuple[str, dict[str, Any]]:
-        return self.ser_identifier, dict(energy=self.energy.tolist(),
-                                         score=self.score.tolist(),
-                                         volume_specific=self.volume_specific)
+        return self.ser_identifier, dict(
+            energy=self.energy.tolist(), score=self.score.tolist(), volume_specific=self.volume_specific
+        )
 
     @classmethod
     def deserialize(cls: Type[Self], d: dict[str, Any], *_, **__) -> Self:
-        return cls(energy=np.array(d["energy"]), score=np.array(d["score"]),
-                   volume_specific=d["volume_specific"])
+        return cls(energy=np.array(d["energy"]), score=np.array(d["score"]), volume_specific=d["volume_specific"])
 
     @classmethod
-    def from_tabulated(cls: Type[Self], 
-                       tabulated: TabulatedValues, 
-                       volume_specific: bool) -> Self:
-        """Create this tabulated score from tabulated values.
-
-        """
+    def from_tabulated(cls: Type[Self], tabulated: TabulatedValues, volume_specific: bool) -> Self:
+        """Create this tabulated score from tabulated values."""
         energy, score = thin(*linearize(tabulated.x, tabulated))
         return cls(energy, score, volume_specific)
 
@@ -217,14 +220,14 @@ class ReactionScore(Serializable):
     density_specific: bool
 
     def serialize(self) -> tuple[str, dict[str, Any]]:
-        return self.ser_identifier, dict(reaction=self.reaction.serialize(),
-                                         volume_specific=self.volume_specific,
-                                         density_specific=self.density_specific)
+        return self.ser_identifier, dict(
+            reaction=self.reaction.serialize(),
+            volume_specific=self.volume_specific,
+            density_specific=self.density_specific,
+        )
 
     @classmethod
     def deserialize(cls: Type[Self], d: dict[str, Any], *, supported: dict[str, Type[Serializable]]) -> Self:
         reaction: ReactionType = deserialize_default(d["reaction"], supported=supported)
         del d["reaction"]
         return cls(reaction=reaction, **d)
-        
-
