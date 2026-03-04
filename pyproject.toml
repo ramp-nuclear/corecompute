@@ -27,6 +27,10 @@ classifiers = [
 dependencies = [
     "numpy",
     "more-itertools",
+    "ramp-core",
+    "ramp-coremaker",
+    "ramp-coreoperator",
+    "ramp-reactions",
     "xarray"
 ]
 
@@ -34,7 +38,8 @@ dependencies = [
 test = [
     "cytoolz",
     "hypothesis",
-    "pytest"
+    "pytest",
+    "ramp-isotopes",
 ]
 
 [tool.setuptools.packages.find]
