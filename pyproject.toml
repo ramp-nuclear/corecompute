@@ -3,13 +3,14 @@ requires = ["setuptools", "setuptools-scm", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "corecompute"
+name = "ramp-corecompute"
 authors = [
     {name = "Nuclear RAMP team", email = "nuclear.ramp.dev@gmail.com"},
 ]
 description = "Package for lightweight representation of nuclear isotopes"
 dynamic = ["version"]
 requires-python = ">=3.11"
+readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = [
     "Development Status :: 4 - Beta",
