@@ -29,7 +29,7 @@ jobs:
         pip install .
     - name: Run and import
       run: |
-        python3 -c "from corecompute import VolumeQuery"
+        python3 -c "from corecompute import Oracle"
 
   test:
     runs-on: ubuntu-latest
