@@ -7,17 +7,17 @@ name = "ramp-corecompute"
 authors = [
     {name = "Nuclear RAMP team", email = "nuclear.ramp.dev@gmail.com"},
 ]
-description = "Package for lightweight representation of nuclear isotopes"
+description = "Package for protocol-based definition of reactor transport computation"
 dynamic = ["version"]
 requires-python = ">=3.11"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Topic :: Scientific/Engineering",
     "Programming Language :: Python :: 3",
